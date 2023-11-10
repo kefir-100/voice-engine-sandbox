@@ -25,7 +25,7 @@ export class BaseApiService {
     const headers = new HttpHeaders({
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      // "xi-api-key": this.apiKey
+      "xi-api-key": this.apiKey
     });
 
     if (params) {
@@ -46,14 +46,15 @@ export class BaseApiService {
 
   postRequest<T>(route: string, body?: any): Promise<T> {
     const header = new HttpHeaders({
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-      // "xi-api-key": this.apiKey
+      "Content-Type": "application/json;",
+      "Accept": "audio/mpeg",
+      "xi-api-key": this.apiKey
     });
 
     return lastValueFrom(
       this.httpClient.post<T>(`${this.baseUrl}/${route}`, body, {
         headers: header,
+        responseType: 'blob' as 'json'
       })
     );
   }

@@ -8,10 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { MenuComponent } from './layout/menu/menu.component';
+import {MatCardModule} from '@angular/material/card';
 
 import { AppRoutingModule } from './app.routing.module';
 
@@ -32,6 +35,9 @@ import { LoginModule } from './login/login.module';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatCardModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,

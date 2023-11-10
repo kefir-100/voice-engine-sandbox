@@ -32,7 +32,7 @@ export class ElevenLabsApiService extends BaseApiService {
     return this.getRequest(this.voiceSettingsUrl);
   }
 
-  getVoiceFromText() {
-    return this.getRequest(this.voiceFromTextUrl);
+  postVoiceFromText<T>(voiceId: string, voiceSettings: any): Promise<T> {
+    return this.postRequest(`${this.voiceFromTextUrl}/${voiceId}/stream`, voiceSettings);
   }
 }

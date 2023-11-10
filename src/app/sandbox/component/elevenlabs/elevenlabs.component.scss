@@ -1,0 +1,37 @@
+.card  {
+  .card-hd {
+    display: block;
+  }
+  .card__content {
+    padding-top: 16px;
+  }
+}
+
+.form {
+  .form__field {
+    display: block;
+  }
+  .form__textarea {
+    height: 60px;
+    resize: none;
+  }
+  .form__audio {
+    min-height: 60px;
+    padding-bottom: 20px;
+  }
+  .form__audio-control {
+    width: 100%;
+    display: block;
+  }
+}
+
+.flex {
+  display: flex;
+  flex-flow: row wrap;
+  .flex__item {
+    width: 49%;
+  }
+  .flex__item:nth-child(odd) {
+    padding-right: 10px;
+  }
+}
