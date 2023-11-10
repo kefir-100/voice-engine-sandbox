@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { MenuComponent } from './layout/menu/menu.component';
 
 import { AppRoutingModule } from './app.routing.module';
 
@@ -18,7 +21,8 @@ import { LoginModule } from './login/login.module';
 @NgModule({
   declarations: [
     AppComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -26,10 +30,12 @@ import { LoginModule } from './login/login.module';
     BrowserAnimationsModule,
     RouterOutlet,
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    LoginModule,
-    MatButtonModule
+    LoginModule
   ],
   bootstrap: [AppComponent]
 })

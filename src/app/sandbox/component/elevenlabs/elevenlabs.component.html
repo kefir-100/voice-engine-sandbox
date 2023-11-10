@@ -1,1 +1,59 @@
-<p>Elevenlabs tab</p>
+<h5>Elevenlabs API</h5>
+
+<form [formGroup]="elevenlabsForm">
+  <mat-form-field>
+    <mat-label>Favorite food</mat-label>
+    <mat-select [(value)]="selectedVoice">
+      @for (voice of voices; track voice) {
+        <mat-option [value]="voice.voice_id">{{voice.name + ' (' + voice.labels.gender + ', ' + voice.labels.age + ', ' + voice.labels.description + ')'}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <div>
+      <input
+        matInput
+        matNativeControl
+        formControlName="text"
+        placeholder="Text"
+        type="text"
+      />
+  </div>
+
+  <div>
+      <input
+        matInput
+        matNativeControl
+        formControlName="stability"
+        placeholder="Stability"
+        type="number"
+      />
+  </div>
+
+  <div>
+      <input
+        matInput
+        matNativeControl
+        formControlName="similarityBoost"
+        placeholder="Clarity + Similarity Enhancement"
+        type="number"
+      />
+  </div>
+
+  <div>
+      <input
+        matInput
+        matNativeControl
+        formControlName="style"
+        placeholder="Style Exaggeration"
+        type="number"
+      />
+  </div>
+
+  <div>
+      <mat-checkbox class="example-margin" formControlName="speakerBoost">Speaker Boost</mat-checkbox>
+  </div>
+
+  <div>
+    <button mat-raised-button color="primary" [disabled]="elevenlabsForm.invalid" (click)="onClickProccess()">Send</button>
+  </div>
+</form>
