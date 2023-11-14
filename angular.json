@@ -41,7 +41,7 @@
           "configurations": {
             "production": {
               "outputPath": "docs",
-              "baseHref": "./browser/",
+              "baseHref": "./",
               "budgets": [
                 {
                   "type": "initial",
