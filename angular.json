@@ -41,7 +41,7 @@
           "configurations": {
             "production": {
               "outputPath": "docs",
-              "baseHref": "./voice-engine-sandbox/browser/",
+              "baseHref": "./browser/",
               "budgets": [
                 {
                   "type": "initial",
