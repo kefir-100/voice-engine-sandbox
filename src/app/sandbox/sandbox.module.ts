@@ -15,6 +15,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatSliderModule} from '@angular/material/slider';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -34,7 +35,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSelectModule,
     MatDividerModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule
   ],
 })
 export class SandboxModule {}

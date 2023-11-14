@@ -1,6 +1,6 @@
 
+import * as _ from 'lodash';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { BaseApiService } from './base-api.service';
@@ -32,7 +32,11 @@ export class ElevenLabsApiService extends BaseApiService {
     return this.getRequest(this.voiceSettingsUrl);
   }
 
-  postVoiceFromText<T>(voiceId: string, voiceSettings: any): Promise<T> {
-    return this.postRequest(`${this.voiceFromTextUrl}/${voiceId}/stream`, voiceSettings);
+  postVoiceFromText<T>(voiceId: string, selectedSpeechQuality: string, voiceSettings: any): Promise<T> {
+    let queryParams = new HttpParams();
+    if (!_.isEmpty(selectedSpeechQuality)) {
+      queryParams = queryParams.append('output_format', selectedSpeechQuality);
+    }
+    return this.postRequest(`${this.voiceFromTextUrl}/${voiceId}/stream?`, queryParams, voiceSettings);
   }
 }

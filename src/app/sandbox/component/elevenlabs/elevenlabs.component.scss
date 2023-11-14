@@ -1,3 +1,7 @@
+.p-b-20 {
+  padding-bottom: 20px;
+}
+
 .card  {
   .card-hd {
     display: block;
@@ -23,6 +27,14 @@
     width: 100%;
     display: block;
   }
+  .form__label {
+    display: block;
+    color: #757575;
+  }
+  .form__hint {
+    font-size: 11px;
+    color: #c5c5c5;
+  }
 }
 
 .flex {
@@ -34,4 +46,7 @@
   .flex__item:nth-child(odd) {
     padding-right: 10px;
   }
+  .flex__item:nth-last-of-type(-n+2) {
+    padding-top: 30px;
+}
 }
