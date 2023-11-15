@@ -19,6 +19,7 @@ export class ElevenlabsComponent implements OnInit, OnDestroy {
   public selectedSpeechQuality: string = '';
   public speechUrl: string = '';
   public displayFavoriteVoices: boolean = true;
+  public useDefaultSettings: boolean = true;
   public loading: boolean = false;
   public errorMessage: string = '';
 
@@ -27,9 +28,10 @@ export class ElevenlabsComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private managementService: ElevenLabsManagementService) { }
 
   public ngOnInit(): void {
-    this.initForm();
     this.initSubscriptions();
+
     this.loadData();
+    this.initForm();
   }
 
   public ngOnDestroy(): void {
@@ -40,21 +42,7 @@ export class ElevenlabsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.speechUrl = '';
     this.errorMessage = '';
-    const formValue = this.elevenlabsForm.value;
-    this.managementService.getSpeech(
-      this.selectedVoice,
-      this.selectedSpeechQuality,
-      {
-        text: formValue.text,
-        model_id: this.selectedVoiceEngine,
-        voice_settings: {
-          similarity_boost: formValue.similarityBoost,
-          stability: formValue.stability,
-          style: formValue.style,
-          speaker_boost: formValue.speakerBoost
-        }
-      }
-    )
+    this.managementService.getSpeech(this.elevenlabsForm.value)
       .then(res => {
         this.speechUrl = res as any;
       })
@@ -70,6 +58,14 @@ export class ElevenlabsComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onChangeDefaultSettings() {
+    if (this.elevenlabsForm.controls['defaultSettings'].value) {
+      this.toggleDefaultSettings(true);
+    } else {
+      this.toggleDefaultSettings(false);
+    }
+  }
+
   private loadData() {
     this.voiceEngines = this.managementService.getVoiceEngines();
     this.selectedVoiceEngine = _.head(this.voiceEngines)?.id;
@@ -77,16 +73,15 @@ export class ElevenlabsComponent implements OnInit, OnDestroy {
     this.speechQualityList = this.managementService.getSpeechQuality();
     this.selectedSpeechQuality = _.head(this.speechQualityList)?.id;
     
-    this.managementService.getVoices()
+    return this.managementService.getVoices()
       .then(voices => {
         if (this.displayFavoriteVoices) {
           this.voices = this.managementService.getFavoriteVoices();
         } else {
           this.voices = this.managementService.getAllVoices();
         }
-        this.selectedVoice = _.head(this.voices)?.voice_id;
-      })
-      .catch(e => console.error(e));
+        this.assignSelectedVoice()
+      });
   }
 
   private initSubscriptions() {
@@ -100,11 +95,34 @@ export class ElevenlabsComponent implements OnInit, OnDestroy {
   private initForm() {
     this.elevenlabsForm = this.formBuilder.group({
       text: ['', Validators.required],
-      similarityBoost: ['0.1', Validators.required],
-      stability: ['0.1', Validators.required],
-      style: ['0.1', Validators.required],
-      speakerBoost: [''],
-      favoriteVoices: [this.displayFavoriteVoices]
+      voiceId: [this.selectedVoice, Validators.required],
+      voiceEngine: [this.selectedVoiceEngine, Validators.required],
+      speechQuality: [this.selectedSpeechQuality, Validators.required],
+      stability: [{ value: 0.5, disabled: this.useDefaultSettings}, Validators.required],
+      similarityBoost: [{ value: 0.75, disabled: this.useDefaultSettings }, Validators.required],
+      style: [{ value: 0, disabled: this.useDefaultSettings }, Validators.required],
+      speakerBoost: [{ value: false, disabled: this.useDefaultSettings }],
+      favoriteVoices: [this.displayFavoriteVoices],
+      defaultSettings: this.useDefaultSettings
     });
+  }
+
+  private toggleDefaultSettings(useDefaultSettings: boolean) {
+    if (useDefaultSettings) {
+      this.elevenlabsForm.controls['stability'].disable();
+      this.elevenlabsForm.controls['similarityBoost'].disable();
+      this.elevenlabsForm.controls['style'].disable();
+      this.elevenlabsForm.controls['speakerBoost'].disable();
+    } else {
+      this.elevenlabsForm.controls['stability'].enable();
+      this.elevenlabsForm.controls['similarityBoost'].enable();
+      this.elevenlabsForm.controls['style'].enable();
+      this.elevenlabsForm.controls['speakerBoost'].enable();
+    }
+  }
+
+  private assignSelectedVoice() {
+    this.selectedVoice = _.head(this.voices)?.voice_id;
+    this.elevenlabsForm.controls['voiceId'].setValue(this.selectedVoice);
   }
 }

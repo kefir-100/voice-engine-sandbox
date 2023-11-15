@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ElevenLabsApiService } from './elevenlabs-api.service';
+import { VoiceSettingsForm } from '../models/voice-settings.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -48,18 +49,21 @@ export class ElevenLabsManagementService {
     return _.cloneDeep(this.favoriteVoices);
   }
 
-  public getVoices() {
+  public getVoices(): Promise<any[]> {
     return this.apiService.getVoices<{ voices: any[] }>()
       .then(voices => voices.voices)
       .then(voices => this.assignVoices(voices))
       .catch(e => {
         this.onErrror$.next(e);
         console.error(e);
+
+        return [];
       });
   }
 
-  public getSpeech(voiceId: string, selectedSpeechQuality: string, data: any) {
-    return this.apiService.postVoiceFromText<any>(voiceId, selectedSpeechQuality, data)
+  public getSpeech(formData: any) {
+    const voiceSettings = new VoiceSettingsForm(formData)
+    return this.apiService.postVoiceFromText<any>(voiceSettings)
       .then(blobAudio => URL.createObjectURL(blobAudio))
       .catch(e => {
         this.onErrror$.next(e);

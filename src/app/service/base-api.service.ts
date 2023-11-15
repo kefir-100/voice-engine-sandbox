@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import { HttpParams, HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
@@ -8,53 +9,62 @@ import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 export class BaseApiService {
   private baseUrl: string = '';
   private apiKey: string = '';
+  private userId: string = '';
 
 	constructor(protected httpClient: HttpClient) {
 	}
 
-  
+
 	setApiKey(apiKey: string) {
 		this.apiKey = apiKey;
+	}
+
+	setUserId(userId: string) {
+		this.userId = userId;
 	}
 
 	setBaseUrl(baseUrl: string) {
 		this.baseUrl = baseUrl;
 	}
 
-  getRequest<T>(route: string, params?: any[]): Promise<T> {
-    const headers = new HttpHeaders({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "xi-api-key": this.apiKey
-    });
-
-    if (params) {
-      const str = params.join().replace(/,/g, "/");
-      return lastValueFrom(
-        this.httpClient.get<T>(`${this.baseUrl}/${route}/${str}`, {
-          headers,
-        })
-      );
-    } else {
-      return lastValueFrom(
-        this.httpClient.get<T>(`${this.baseUrl}/${route}`, {
-          headers,
-        })
-      );
-    }
+  getApiKey() {
+    return this.apiKey;
   }
 
-  postRequest<T>(route: string, params?: HttpParams, body?: any): Promise<T> {
-    const header = new HttpHeaders({
-      "Content-Type": "application/json;",
-      "Accept": "audio/mpeg",
-      "xi-api-key": this.apiKey
+  getUserId() {
+    return this.userId;
+  }
+
+  getRequest<T>(route: string, hd?: HttpHeaders, params?: HttpParams): Promise<T> {
+    let headers = new HttpHeaders({
+      'content-type': 'application/json',
     });
+
+    if (!_.isNil(hd)) {
+      headers = hd.append('Content-Type', 'application/json');
+    }
+
+    return lastValueFrom(
+      this.httpClient.get<T>(`${this.baseUrl}/${route}`, {
+        headers,
+        params
+      })
+    );
+  }
+
+  postRequest<T>(route: string, hd?: HttpHeaders, params?: HttpParams, body?: any): Promise<T> {
+    let headers = new HttpHeaders({
+      'content-type': 'application/json',
+    });
+
+    if (!_.isNil(hd)) {
+      headers = hd.append('Content-Type', 'application/json');
+    }
 
     return lastValueFrom(
       this.httpClient.post<T>(`${this.baseUrl}/${route}`, body, {
-        headers: header,
-        params: params,
+        headers,
+        params,
         responseType: 'blob' as 'json'
       })
     );

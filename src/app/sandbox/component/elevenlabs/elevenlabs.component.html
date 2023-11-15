@@ -11,22 +11,39 @@
       <div>
         <mat-form-field class="form__field">
           <mat-label>Select voice</mat-label>
-          <mat-select [(value)]="selectedVoice">
+          <mat-select formControlName="voiceId">
             @for (voice of voices; track voice.voice_id) {
-              <mat-option [value]="voice.voice_id">{{voice.name + ' (' + voice.labels.gender + ', ' + voice.labels.age + ', ' + voice.labels.description + ')'}}</mat-option>
+              <mat-option class="m-b-10" [value]="voice.voice_id">
+                <div class="flex nowrap ai-center">
+                  <audio class="w-400px m-r-10" [src]="voice.preview_url" controls></audio>
+                  <span>{{voice.name + ' (' + voice.labels.gender + ', ' + voice.labels.age + ', ' + voice.labels.description + ')'}}</span>
+                </div>
+              </mat-option>
             }
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div class="flex__item p-b-20">
-        <mat-checkbox class="example-margin" (change)="onChangeFavoriteVoices()" formControlName="favoriteVoices">Display favorite voices only</mat-checkbox>
+      <div class="flex p-b-20">
+        <div class="flex__item p-0">
+          <mat-checkbox (change)="onChangeFavoriteVoices()" formControlName="favoriteVoices">Display favorite voices only</mat-checkbox>
+        </div>
+        <div class="flex__item p-0">
+          <mat-checkbox (change)="onChangeDefaultSettings()" formControlName="defaultSettings">Default settings</mat-checkbox>
+        </div>
+      </div>
+
+      <div>
+        <mat-form-field class="form__field">
+          <mat-label>Text to speech</mat-label>
+          <textarea class="form__textarea" matInput required formControlName="text"></textarea>
+        </mat-form-field>
       </div>
 
       <div>
         <mat-form-field class="form__field">
           <mat-label>Select voice engine</mat-label>
-          <mat-select [(value)]="selectedVoiceEngine">
+          <mat-select formControlName="voiceEngine">
             @for (engine of voiceEngines; track engine.id) {
               <mat-option [value]="engine.id">{{engine.name}}</mat-option>
             }
@@ -37,18 +54,11 @@
       <div>
         <mat-form-field class="form__field">
           <mat-label>Select speech quality</mat-label>
-          <mat-select [(value)]="selectedSpeechQuality">
+          <mat-select formControlName="speechQuality">
             @for (quality of speechQualityList; track quality.id) {
               <mat-option [value]="quality.id">{{quality.name}}</mat-option>
             }
           </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div>
-        <mat-form-field class="form__field">
-          <mat-label>Text to speech</mat-label>
-          <textarea class="form__textarea" matInput required formControlName="text"></textarea>
         </mat-form-field>
       </div>
 
@@ -93,9 +103,9 @@
 
       <div>
         <button mat-raised-button color="primary" [disabled]="elevenlabsForm.invalid" (click)="onClickProccess()">
-        <span *ngIf="!loading">Send</span>
-        <mat-progress-spinner *ngIf="loading" color="accent" mode="indeterminate" diameter="25"></mat-progress-spinner>
-      </button>
+          <span *ngIf="!loading">Send</span>
+          <mat-progress-spinner *ngIf="loading" color="accent" mode="indeterminate" diameter="25"></mat-progress-spinner>
+        </button>
       </div>
     </form>
   </mat-card-content>

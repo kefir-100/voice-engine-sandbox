@@ -1,1 +1,102 @@
-<p>Plat.ht tab</p>
+
+<mat-card class="card" appearance="outlined">
+  <mat-card-header class="card-hd">
+    <mat-card-title class="form__card-text">
+      <h2>Play.ht API</h2>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="card__content">
+    <form [formGroup]="playhtForm" class="form">
+      <!-- <div>
+        <mat-form-field class="form__field">
+          <mat-label>Select voice</mat-label>
+          <mat-select [(value)]="selectedVoice">
+            @for (voice of voices; track voice.voice_id) {
+              <mat-option [value]="voice.voice_id">{{voice.name + ' (' + voice.labels.gender + ', ' + voice.labels.age + ', ' + voice.labels.description + ')'}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex__item p-b-20">
+        <mat-checkbox class="example-margin" (change)="onChangeFavoriteVoices()" formControlName="favoriteVoices">Display favorite voices only</mat-checkbox>
+      </div>
+
+      <div>
+        <mat-form-field class="form__field">
+          <mat-label>Select voice engine</mat-label>
+          <mat-select [(value)]="selectedVoiceEngine">
+            @for (engine of voiceEngines; track engine.id) {
+              <mat-option [value]="engine.id">{{engine.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="form__field">
+          <mat-label>Select speech quality</mat-label>
+          <mat-select [(value)]="selectedSpeechQuality">
+            @for (quality of speechQualityList; track quality.id) {
+              <mat-option [value]="quality.id">{{quality.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="form__field">
+          <mat-label>Text to speech</mat-label>
+          <textarea class="form__textarea" matInput required formControlName="text"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="flex">
+        <div class="flex__item">
+          <mat-label class="form__label">Stability</mat-label>
+          <mat-slider class="form__field" min="0" max="1" step="0.05" discrete required>
+            <input formControlName="stability" matSliderThumb>
+          </mat-slider>
+          <mat-hint class="form__hint">0 - More variable, 1 - More stable</mat-hint>
+        </div>
+
+        <div class="flex__item">
+          <mat-label class="form__label">Clarity + Similarity Enhancement</mat-label>
+          <mat-slider class="form__field" min="0" max="1" step="0.05" discrete required>
+            <input formControlName="similarityBoost" matSliderThumb>
+          </mat-slider>
+          <mat-hint class="form__hint">0 - For more background artifacts in generated speech, 1 - Boosts overall voice clarity and target speaker similarity</mat-hint>
+        </div>
+
+        <div class="flex__item">
+          <mat-label class="form__label">Style Exaggeration</mat-label>
+          <mat-slider class="form__field" min="0" max="1" step="0.05" discrete required>
+            <input formControlName="style" matSliderThumb>
+          </mat-slider>
+          <mat-hint class="form__hint">0 - None, 1 - More exaggerated</mat-hint>
+        </div>
+
+        <div class="flex__item">
+          <mat-checkbox class="example-margin" formControlName="speakerBoost">Speaker Boost</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="form__audio">
+        <div *ngIf="speechUrl">
+          <audio class="form__audio-control" [src]="speechUrl" controls></audio>
+        </div>
+        <div *ngIf="errorMessage">
+          <mat-error>{{ errorMessage }}</mat-error>
+        </div>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" [disabled]="elevenlabsForm.invalid" (click)="onClickProccess()">
+          <span *ngIf="!loading">Send</span>
+          <mat-progress-spinner *ngIf="loading" color="accent" mode="indeterminate" diameter="25"></mat-progress-spinner>
+        </button>
+      </div> -->
+    </form>
+  </mat-card-content>
+</mat-card>

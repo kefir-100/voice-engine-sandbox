@@ -6,23 +6,22 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 
 import { appConfig } from '../app.config';
-import { VoiceSettingsForm } from '../models/voice-settings.model';
 
 
 @Injectable({
 	providedIn: 'root',
 })
-export class ElevenLabsApiService extends BaseApiService {
-  private voicesUrl = 'v1/voices';
-  private voiceSettingsUrl = 'settings';
+export class PlayhtApiService extends BaseApiService {
+  private voicesUrl = 'api/v2/voices';
   private voiceFromTextUrl = 'v1/text-to-speech';
   constructor(
     httpClient: HttpClient
   ) {
     super(httpClient);
 
-    this.setApiKey(appConfig.elevenlabsApiKey);
-    this.setBaseUrl(appConfig.elevenlabsApi);
+    this.setApiKey(appConfig.playhtApiKey);
+    this.setUserId(appConfig.playhtUserId);
+    this.setBaseUrl(appConfig.playhtApi);
   }
 
   getVoices<T>(): Promise<T> {
@@ -30,30 +29,28 @@ export class ElevenLabsApiService extends BaseApiService {
     return this.getRequest(this.voicesUrl, headers);
   }
 
-  getVoiceSetting() {
-    return this.getRequest(this.voiceSettingsUrl);
-  }
-
-  postVoiceFromText<T>(voiceSettings: VoiceSettingsForm): Promise<T> {
+  postVoiceFromText<T>(voiceId: string, selectedSpeechQuality: string, voiceSettings: any): Promise<T> {
     let params = new HttpParams();
-    if (!_.isEmpty(voiceSettings.speechQuality)) {
-      params = params.append('output_format', voiceSettings.speechQuality as string);
+    if (!_.isEmpty(selectedSpeechQuality)) {
+      params = params.append('output_format', selectedSpeechQuality);
     }
     const headers = this.getVoiceFromTextHeaders();
-    return this.postRequest(`${this.voiceFromTextUrl}/${voiceSettings.voiceId}/stream?`, headers, params, voiceSettings.voiceSettings);
+    return this.postRequest(`${this.voiceFromTextUrl}/${voiceId}/stream?`, headers, params, voiceSettings);
   }
 
   private getVoiceHeaders() {
     return new HttpHeaders({
       'accept': 'application/json',
-      'xi-api-key': this.getApiKey()
+      'x-user-id': this.getApiKey(),
+      'authorization': this.getUserId()
     });
   }
-  
+
   private getVoiceFromTextHeaders() {
     return new HttpHeaders({
       'accept': 'audio/mpeg',
-      'xi-api-key': this.getApiKey()
+      'x-user-id': this.getApiKey(),
+      'authorization': this.getUserId()
     });
   }
 }
