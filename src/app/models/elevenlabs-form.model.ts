@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-export class VoiceSettingsForm {
+export class ElevenlabsFormModel {
   public text: string = '';
   public voiceId: string = '';
   public voiceEngine: string = '';
@@ -27,7 +27,7 @@ export class VoiceSettingsForm {
     Object.assign(this, formData);
   }
 
-  public get voiceSettings() {
+  public get voiceSettingsForApi() {
     const vs: {
       text: string,
       model_id: string,

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 
 import { appConfig } from '../app.config';
+import { PlayhtFormModel } from '../models/playht-form.model';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ import { appConfig } from '../app.config';
 })
 export class PlayhtApiService extends BaseApiService {
   private voicesUrl = 'api/v2/voices';
-  private voiceFromTextUrl = 'v1/text-to-speech';
+  // private voicesUrl = 'api/studio/voices';
+  private voiceFromTextUrl = 'api/v2/tts/stream';
   constructor(
     httpClient: HttpClient
   ) {
@@ -29,28 +31,25 @@ export class PlayhtApiService extends BaseApiService {
     return this.getRequest(this.voicesUrl, headers);
   }
 
-  postVoiceFromText<T>(voiceId: string, selectedSpeechQuality: string, voiceSettings: any): Promise<T> {
-    let params = new HttpParams();
-    if (!_.isEmpty(selectedSpeechQuality)) {
-      params = params.append('output_format', selectedSpeechQuality);
-    }
+  postVoiceFromText<T>(voiceSettings: PlayhtFormModel): Promise<T> {
+    let params = new HttpParams().append('format', 'audio-mpeg');
     const headers = this.getVoiceFromTextHeaders();
-    return this.postRequest(`${this.voiceFromTextUrl}/${voiceId}/stream?`, headers, params, voiceSettings);
+    return this.postRequest(`${this.voiceFromTextUrl}`, headers, params, voiceSettings.voiceSettingsForApi);
   }
 
   private getVoiceHeaders() {
     return new HttpHeaders({
       'accept': 'application/json',
-      'x-user-id': this.getApiKey(),
-      'authorization': this.getUserId()
+      'x-user-id': this.getUserId(),
+      'authorization': this.getApiKey()
     });
   }
 
   private getVoiceFromTextHeaders() {
     return new HttpHeaders({
       'accept': 'audio/mpeg',
-      'x-user-id': this.getApiKey(),
-      'authorization': this.getUserId()
+      'x-user-id': this.getUserId(),
+      'authorization': this.getApiKey()
     });
   }
 }

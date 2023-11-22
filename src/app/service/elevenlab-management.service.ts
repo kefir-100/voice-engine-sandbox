@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ElevenLabsApiService } from './elevenlabs-api.service';
-import { VoiceSettingsForm } from '../models/voice-settings.model';
+import { ElevenlabsFormModel } from '../models/elevenlabs-form.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -62,7 +62,7 @@ export class ElevenLabsManagementService {
   }
 
   public getSpeech(formData: any) {
-    const voiceSettings = new VoiceSettingsForm(formData)
+    const voiceSettings = new ElevenlabsFormModel(formData)
     return this.apiService.postVoiceFromText<any>(voiceSettings)
       .then(blobAudio => URL.createObjectURL(blobAudio))
       .catch(e => {

@@ -71,7 +71,8 @@
               "buildTarget": "voice-engine-sandbox:build:production"
             },
             "development": {
-              "buildTarget": "voice-engine-sandbox:build:development"
+              "buildTarget": "voice-engine-sandbox:build:development",
+              "proxyConfig": "src/proxy-config.dev.mjs"
             }
           },
           "defaultConfiguration": "development"

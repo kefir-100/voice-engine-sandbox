@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 
 import { appConfig } from '../app.config';
-import { VoiceSettingsForm } from '../models/voice-settings.model';
+import { ElevenlabsFormModel } from '../models/elevenlabs-form.model';
 
 
 @Injectable({
@@ -34,13 +34,13 @@ export class ElevenLabsApiService extends BaseApiService {
     return this.getRequest(this.voiceSettingsUrl);
   }
 
-  postVoiceFromText<T>(voiceSettings: VoiceSettingsForm): Promise<T> {
+  postVoiceFromText<T>(voiceSettings: ElevenlabsFormModel): Promise<T> {
     let params = new HttpParams();
     if (!_.isEmpty(voiceSettings.speechQuality)) {
       params = params.append('output_format', voiceSettings.speechQuality as string);
     }
     const headers = this.getVoiceFromTextHeaders();
-    return this.postRequest(`${this.voiceFromTextUrl}/${voiceSettings.voiceId}/stream?`, headers, params, voiceSettings.voiceSettings);
+    return this.postRequest(`${this.voiceFromTextUrl}/${voiceSettings.voiceId}/stream?`, headers, params, voiceSettings.voiceSettingsForApi);
   }
 
   private getVoiceHeaders() {
