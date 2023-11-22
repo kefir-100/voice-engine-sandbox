@@ -13,7 +13,7 @@
           <mat-label>Select voice</mat-label>
           <mat-select formControlName="voice">
             @for (voice of voices; track voice.voice_id) {
-              <mat-option class="m-b-10" [value]="voice.id" [class.highlighted-text]="hasIdLink(voice.id)">
+              <mat-option class="m-b-10" [value]="voice.id">
                 <div class="flex nowrap ai-center">
                   <audio class="w-400px m-r-10" [src]="voice.sample" controls></audio>
                   <span>{{voice.name + ' (' + voice.gender + ', ' + voice.age + ', ' + voice.style + ', ' + voice.texture + ', ' + voice.voice_engine + ')'}}</span>

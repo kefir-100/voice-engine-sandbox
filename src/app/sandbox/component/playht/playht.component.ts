@@ -94,10 +94,6 @@ export class PlayhtComponent implements OnInit, OnDestroy, AfterViewInit {
   //   this.managementService.downLoadFile();
   // }
 
-  public hasIdLink(voiceId: string): boolean {
-    return _.endsWith(voiceId, '.json');
-  }
-
   private initSubscriptions() {
     this.subscriptions.add(
       this.managementService.onErrror$.subscribe((errorMessage: string) => (this.errorMessage = errorMessage))
