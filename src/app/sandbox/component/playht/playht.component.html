@@ -66,7 +66,7 @@
       <div class="flex">
         <div class="flex__item">
           <mat-label class="form__label">Speed</mat-label>
-          <mat-slider class="form__field" min="0.1" max="5" step="0.1" discrete>
+          <mat-slider class="hero-slider form__field" min="0.1" max="5" step="0.1" showTickMarks discrete>
             <input formControlName="speed" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">0 - More slow, 1 - More fast</mat-hint>
@@ -74,7 +74,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Sample Rate (kHz)</mat-label>
-          <mat-slider class="form__field" min="8000" max="48000" step="8000" discrete>
+          <mat-slider class="hero-slider form__field" min="8000" max="48000" step="8000" showTickMarks discrete>
             <input formControlName="sample_rate" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">8 kHz - Less quality, 48 kHz - High quality</mat-hint>
@@ -90,7 +90,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Temperature</mat-label>
-          <mat-slider class="form__field" min="0.1" max="2" step="0.1" discrete>
+          <mat-slider class="hero-slider form__field" min="0.1" max="2" step="0.1" showTickMarks discrete>
             <input formControlName="temperature" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">The temperature parameter controls variance. Lower temperatures result in more predictable results, higher temperatures allow each run to vary more, so the voice may sound less like the baseline voice.</mat-hint>
@@ -109,7 +109,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Voice Guidance</mat-label>
-          <mat-slider class="form__field" min="0.1" max="6" step="0.1" discrete>
+          <mat-slider class="hero-slider form__field" min="0.1" max="6" step="0.1" showTickMarks discrete>
             <input formControlName="voice_guidance" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">Use lower numbers to reduce how unique your chosen voice will be compared to other voices. Higher numbers will maximize its individuality. Only supported when voice_engine is set to PlayHT2.0 or PlayHT2.0-turbo, and voice uses that engine.</mat-hint>
@@ -117,7 +117,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Style Guidance</mat-label>
-          <mat-slider class="form__field" min="0.1" max="30" step="0.1" discrete>
+          <mat-slider class="hero-slider form__field" min="0.1" max="30" step="0.1" showTickMarks discrete>
             <input formControlName="style_guidance" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">Use lower numbers to to reduce how strong your chosen emotion will be. Higher numbers will create a very emotional performance. Only supported when voice_engine is set to PlayHT2.0 or PlayHT2.0-turbo, and voice uses that engine.</mat-hint>
@@ -125,7 +125,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Text Guidance</mat-label>
-          <mat-slider class="form__field" min="1" max="2" step="0.1" discrete>
+          <mat-slider class="hero-slider form__field" min="1" max="2" step="0.1" showTickMarks discrete>
             <input formControlName="text_guidance" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">This number influences how closely the generated speech adheres to the input text. Use lower values to create more fluid speech, but with a higher chance of deviating from the input text. Higher numbers will make the generated speech more accurate to the input text, ensuring that the words spoken align closely with the provided text. Only supported when voice_engine is set to PlayHT2.0, and voice uses that engine.</mat-hint>

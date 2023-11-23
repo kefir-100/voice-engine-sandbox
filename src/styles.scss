@@ -5,3 +5,7 @@ app-root, app-main-layout {
   height: 100%;
   display: block;
 }
+
+.hero-slider.mdc-slider .mdc-slider__thumb .mdc-slider__value-indicator {
+  transform: scale(1);
+}

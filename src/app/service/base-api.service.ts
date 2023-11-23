@@ -1,18 +1,15 @@
 import * as _ from "lodash";
 import { HttpParams, HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root',
-})
+import { HttpHeadersHelperService } from './http-headers-helper.service';
+
 export class BaseApiService {
   private baseUrl: string = '';
   private apiKey: string = '';
   private userId: string = '';
 
-	constructor(protected httpClient: HttpClient) {
-	}
+	constructor(protected httpClient: HttpClient, protected headersService: HttpHeadersHelperService) {}
 
 
 	setApiKey(apiKey: string) {
@@ -36,12 +33,10 @@ export class BaseApiService {
   }
 
   getRequest<T>(route: string, hd?: HttpHeaders, params?: HttpParams): Promise<T> {
-    let headers = new HttpHeaders({
-      'content-type': 'application/json',
-    });
+    let headers = this.headersService.getContentTypeHeader();
 
     if (!_.isNil(hd)) {
-      headers = hd.append('Content-Type', 'application/json');
+      headers = this.headersService.mergeHeaders(hd, headers);
     }
 
     return lastValueFrom(
@@ -53,12 +48,10 @@ export class BaseApiService {
   }
 
   postRequest<T>(route: string, hd?: HttpHeaders, params?: HttpParams, body?: any): Promise<T> {
-    let headers = new HttpHeaders({
-      'content-type': 'application/json',
-    });
+    let headers = this.headersService.getContentTypeHeader();
 
     if (!_.isNil(hd)) {
-      headers = hd.append('Content-Type', 'application/json');
+      headers = this.headersService.mergeHeaders(hd, headers);
     }
 
     return lastValueFrom(

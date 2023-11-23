@@ -65,7 +65,7 @@
       <div class="flex">
         <div class="flex__item">
           <mat-label class="form__label">Stability</mat-label>
-          <mat-slider class="form__field" min="0" max="1" step="0.05" discrete required>
+          <mat-slider class="hero-slider form__field" min="0" max="1" step="0.05" discrete required>
             <input formControlName="stability" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">0 - More variable, 1 - More stable</mat-hint>
@@ -73,7 +73,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Clarity + Similarity Enhancement</mat-label>
-          <mat-slider class="form__field" min="0" max="1" step="0.05" discrete required>
+          <mat-slider class="hero-slider form__field" min="0" max="1" step="0.05" discrete required>
             <input formControlName="similarityBoost" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">0 - For more background artifacts in generated speech, 1 - Boosts overall voice clarity and target speaker similarity</mat-hint>
@@ -81,7 +81,7 @@
 
         <div class="flex__item">
           <mat-label class="form__label">Style Exaggeration</mat-label>
-          <mat-slider class="form__field" min="0" max="1" step="0.05" discrete required>
+          <mat-slider class="hero-slider form__field" min="0" max="1" step="0.05" discrete required>
             <input formControlName="style" matSliderThumb>
           </mat-slider>
           <mat-hint class="form__hint">0 - None, 1 - More exaggerated</mat-hint>
