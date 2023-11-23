@@ -1,0 +1,16 @@
+.root-container {
+  padding: 30px 20px;
+  height: calc(100% - 60px);
+}
+.root-container__h1 {
+  text-align: center;
+  cursor: pointer;
+}
+.root-container__content {
+  margin: 20px 0;
+  height: calc(100% - 80px);
+}
+
+.root-container__menu {
+  width: 260px;
+}

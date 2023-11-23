@@ -1,0 +1,43 @@
+
+<form [formGroup]="loginForm" class="form">
+  <mat-card class="form__card" appearance="outlined">
+    <mat-card-header class="form__card-hd">
+      <mat-card-title class="form__card-text">Voice engine sandbox</mat-card-title>
+      <mat-divider></mat-divider>
+    </mat-card-header>
+    <mat-card-content>
+        <h5 class="form__f-text">Login</h5>
+      
+        <div>
+          <mat-form-field class="form__f-field">
+            <input
+              matInput
+              formControlName="userName"
+              required
+              placeholder="Username"
+              autofocus
+            />
+          </mat-form-field>
+        </div>
+      
+        <div>
+          <mat-form-field class="form__f-field">
+            <input
+              matInput
+              formControlName="password"
+              required
+              type="password"
+              placeholder="Password"
+            />
+          </mat-form-field>
+        </div>
+      
+        <div>
+          
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="form__f-ft">
+      <button class="form__f-btn" mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="onClickLogin()">Login</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

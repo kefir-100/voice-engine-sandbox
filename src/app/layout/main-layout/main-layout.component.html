@@ -1,0 +1,19 @@
+<div class="root-container">
+  <div>
+    <h1 routerLink="/login" class="root-container__h1">Voice Engine Sandbox</h1>
+    <mat-divider></mat-divider>
+  </div>
+
+  <mat-drawer-container class="root-container__content">
+    <mat-drawer mode="side" opened class="root-container__menu">
+      <app-menu></app-menu>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+  <div>
+    <p>Copyright 2023.</p>
+  </div>
+</div>
